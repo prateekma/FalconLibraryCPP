@@ -2,9 +2,6 @@
 
 #include <cmath>
 
-#include "Pose2d.h"
-#include "Utilities.h"
-
 namespace frc5190 {
 class Twist2d {
  public:
@@ -26,23 +23,6 @@ class Twist2d {
   double Norm() const {
     if (dy_ == 0.0) return std::abs(dx_);
     return std::hypot(dx_, dy_);
-  }
-
-  Pose2d AsPose() const {
-    const auto sin_theta = std::sin(dtheta_);
-    const auto cos_theta = std::cos(dtheta_);
-
-    double s, c;
-    if (std::abs(dtheta_) < kEpsilon) {
-      s = 1.0 - 1.0 / 6.0 * dtheta_ * dtheta_;
-      c = 0.5 * dtheta_;
-    } else {
-      s = sin_theta / dtheta_;
-      c = (1 - cos_theta) / dtheta_;
-    }
-
-    return Pose2d{Translation2d{dx_ * s - dy_ * c, dx_ * c + dy_ * s},
-                  Rotation2d{cos_theta, sin_theta, false}};
   }
 
  private:

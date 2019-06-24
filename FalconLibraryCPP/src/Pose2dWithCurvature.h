@@ -6,7 +6,8 @@
 #include "Interpolatable.h"
 
 namespace frc5190 {
-class Pose2dWithCurvature final : public VaryInterpolatable<Pose2dWithCurvature> {
+class Pose2dWithCurvature final
+    : public VaryInterpolatable<Pose2dWithCurvature> {
  public:
   // Constructors
   Pose2dWithCurvature(Pose2d pose, const double curvature, const double dkds)

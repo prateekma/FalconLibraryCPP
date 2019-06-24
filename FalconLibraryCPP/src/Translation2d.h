@@ -51,8 +51,7 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
                          x_ * rotation.Sin() + y_ * rotation.Cos()};
   }
 
-      Translation2d
-      operator/(const double scalar) const {
+  Translation2d operator/(const double scalar) const {
     return Translation2d{X() / scalar, Y() / scalar};
   }
 
