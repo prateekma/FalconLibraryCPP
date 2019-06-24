@@ -1,10 +1,9 @@
 #pragma once
 
-#include "types/VaryInterpolatable.h"
 #include "Translation2d.h"
 #include "Rotation2d.h"
-#include "Utilities.h"
 #include "Twist2d.h"
+#include "../../Utilities.h"
 
 namespace frc5190 {
 class Twist2d;
@@ -20,7 +19,7 @@ class Pose2d final : public VaryInterpolatable<Pose2d> {
       : translation_(Translation2d(x, y)), rotation_(rotation) {}
 
   // Overriden Methods
-  double Distance(const Pose2d& other) override {
+  double Distance(const Pose2d& other) const override {
     return ToTwist(-*this + other).Norm();
   }
   Pose2d Interpolate(const Pose2d& end_value, const double t) override {

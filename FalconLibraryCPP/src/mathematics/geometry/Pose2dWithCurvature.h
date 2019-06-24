@@ -1,7 +1,6 @@
 #pragma once
 
 #include <utility>
-#include "types/VaryInterpolatable.h"
 #include "Pose2d.h"
 
 namespace frc5190 {
@@ -13,7 +12,7 @@ class Pose2dWithCurvature final
       : pose_(std::move(pose)), curvature_(curvature), dkds_(dkds) {}
 
   // Overriden Methods
-  double Distance(const Pose2dWithCurvature& other) override {
+  double Distance(const Pose2dWithCurvature& other) const override {
     return pose_.Distance(other.pose_);
   }
 

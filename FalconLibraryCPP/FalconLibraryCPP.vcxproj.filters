@@ -42,5 +42,14 @@
     <ClInclude Include="src\mathematics\geometry\Twist2d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\mathematics\spline\ParametricSpline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mathematics\spline\ParametricQuinticHermiteSpline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mathematics\spline\SplineGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

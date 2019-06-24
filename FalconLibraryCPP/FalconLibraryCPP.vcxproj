@@ -124,6 +124,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\FalconLibrary.h" />
+    <ClInclude Include="src\mathematics\spline\ParametricQuinticHermiteSpline.h" />
+    <ClInclude Include="src\mathematics\spline\ParametricSpline.h" />
+    <ClInclude Include="src\mathematics\spline\SplineGenerator.h" />
     <ClInclude Include="src\types\Interpolatable.h" />
     <ClInclude Include="src\mathematics\geometry\Pose2d.h" />
     <ClInclude Include="src\mathematics\geometry\Pose2dWithCurvature.h" />

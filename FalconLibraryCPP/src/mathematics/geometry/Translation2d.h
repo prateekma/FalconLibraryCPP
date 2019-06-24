@@ -2,9 +2,8 @@
 
 #include <cmath>
 
-#include "types/Interpolatable.h"
-#include "types/VaryInterpolatable.h"
 #include "Rotation2d.h"
+#include "../../types/VaryInterpolatable.h"
 
 namespace frc5190 {
 
@@ -17,7 +16,7 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
       : x_(distance * rotation.Cos()), y_(distance * rotation.Sin()) {}
 
   // Overriden Methods
-  double Distance(const Translation2d& other) override {
+  double Distance(const Translation2d& other) const override {
     return std::hypot(other.X() - X(), other.Y() - Y());
   }
 
