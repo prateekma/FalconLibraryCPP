@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VaryInterpolatable.h"
+#include "types/VaryInterpolatable.h"
 #include "Translation2d.h"
 #include "Rotation2d.h"
 #include "Utilities.h"

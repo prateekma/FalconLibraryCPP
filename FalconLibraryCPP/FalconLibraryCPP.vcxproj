@@ -124,14 +124,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\FalconLibrary.h" />
-    <ClInclude Include="src\Interpolatable.h" />
-    <ClInclude Include="src\Pose2d.h" />
-    <ClInclude Include="src\Pose2dWithCurvature.h" />
-    <ClInclude Include="src\Rotation2d.h" />
-    <ClInclude Include="src\Translation2d.h" />
-    <ClInclude Include="src\Twist2d.h" />
+    <ClInclude Include="src\types\Interpolatable.h" />
+    <ClInclude Include="src\mathematics\geometry\Pose2d.h" />
+    <ClInclude Include="src\mathematics\geometry\Pose2dWithCurvature.h" />
+    <ClInclude Include="src\mathematics\geometry\Rotation2d.h" />
+    <ClInclude Include="src\mathematics\geometry\Translation2d.h" />
+    <ClInclude Include="src\mathematics\geometry\Twist2d.h" />
     <ClInclude Include="src\Utilities.h" />
-    <ClInclude Include="src\VaryInterpolatable.h" />
+    <ClInclude Include="src\types\VaryInterpolatable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

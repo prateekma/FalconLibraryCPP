@@ -1,12 +1,14 @@
 #pragma once
 
-#include "Interpolatable.h"
-#include "Pose2d.h"
-#include "Pose2dWithCurvature.h"
-#include "Rotation2d.h"
-#include "Translation2d.h"
-#include "Twist2d.h"
+#include "types/Interpolatable.h"
+#include "types/VaryInterpolatable.h"
+
+#include "mathematics/geometry/Pose2d.h"
+#include "mathematics/geometry/Pose2dWithCurvature.h"
+#include "mathematics/geometry/Rotation2d.h"
+#include "mathematics/geometry/Translation2d.h"
+#include "mathematics/geometry/Twist2d.h"
+
 #include "Utilities.h"
-#include "VaryInterpolatable.h"
 
 namespace frc5190 {}

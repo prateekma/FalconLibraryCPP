@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-#include "Interpolatable.h"
-#include "VaryInterpolatable.h"
+#include "types/Interpolatable.h"
+#include "types/VaryInterpolatable.h"
 #include "Rotation2d.h"
 
 namespace frc5190 {

@@ -1,9 +1,8 @@
 #pragma once
 
 #include <utility>
-#include "VaryInterpolatable.h"
+#include "types/VaryInterpolatable.h"
 #include "Pose2d.h"
-#include "Interpolatable.h"
 
 namespace frc5190 {
 class Pose2dWithCurvature final
