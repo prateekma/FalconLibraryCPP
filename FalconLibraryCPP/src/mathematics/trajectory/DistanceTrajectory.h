@@ -6,9 +6,7 @@ namespace frc5190 {
 template <typename S>
 class DistanceIterator : public TrajectoryIterator<double, S> {
  public:
-  explicit DistanceIterator(Trajectory<double, S> trajectory)
-      : TrajectoryIterator(trajectory) {}
-
+  DistanceIterator(){};
   double Addition(double a, double b) const override { return a + b; }
 };
 
@@ -16,12 +14,15 @@ template <typename S>
 class DistanceTrajectory : public Trajectory<double, S> {
  public:
   explicit DistanceTrajectory(std::vector<S> points) : points_(points) {
-    iterator_ = new DistanceIterator<S>(this);
+    iterator_ = new DistanceIterator<S>;
+
     distances_.push_back(0.0);
     for (auto i = 1; i < points_.size(); ++i) {
       distances_.push_back(distances_[i - 1] +
                            points_[i - 1].Distance(points_[i]));
     }
+
+    iterator_->SetTrajectory(this);
   }
 
   ~DistanceTrajectory() { delete iterator_; }
@@ -30,24 +31,24 @@ class DistanceTrajectory : public Trajectory<double, S> {
 
   bool Reversed() const override { return false; }
 
-  TrajectoryPoint<S> Sample(double interpolant) override {
+  TrajectorySamplePoint<S> Sample(double interpolant) override {
     if (interpolant >= LastInterpolant()) {
       return TrajectorySamplePoint<S>(this->Point(points_.size() - 1));
     }
     if (interpolant <= 0.0) {
       return TrajectorySamplePoint<S>(this->Point(0));
     }
+
     for (auto i = 1; i < distances_.size(); ++i) {
-      const auto s = this->Point(i);
+      const auto s = points_[i];
       if (distances_[i] >= interpolant) {
-        const auto prev_s = this->Point(i - 1);
+        const auto prev_s = points_[i - 1];
         if (EpsilonEquals(distances_[i], distances_[i - 1])) {
-          return TrajectorySamplePoint<S>(s);
+          return TrajectorySamplePoint<S>(s, i, i);
         }
         return TrajectorySamplePoint<S>(
-            prev_s.state.Interpolate(s.state,
-                                     (interpolant - distances_[i - 1]) /
-                                         (distances_[i] - distances_[i - 1])),
+            prev_s.Interpolate(s, (interpolant - distances_[i - 1]) /
+                                      (distances_[i] - distances_[i - 1])),
             i - 1, i);
       }
     }

@@ -14,7 +14,14 @@ class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
         velocity_(velocity),
         acceleration_(acceleration) {}
 
-  TimedEntry<S> Interpolate(const TimedEntry<S>& end_value, double t) override {
+  TimedEntry()
+    : t_(0),
+      velocity_(0),
+      acceleration_(0) {
+  }
+
+  TimedEntry<S> Interpolate(const TimedEntry<S>& end_value,
+                            double t) const override {
     auto new_t = this->Lerp(t_, end_value.t_, t);
     auto delta_t = new_t - this->t_;
 
@@ -38,6 +45,15 @@ class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
     return state_.Distance(other.state_);
   }
 
+  S State() const { return state_; }
+  double T() const { return t_; }
+  double Velocity() const { return velocity_; }
+  double Acceleration() const { return acceleration_; }
+
+  void SetAcceleration(const double acceleration) {
+    acceleration_ = acceleration;
+  }
+
  private:
   S state_;
   double t_;
@@ -47,9 +63,6 @@ class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
 
 template <typename S>
 class TimedIterator final : public TrajectoryIterator<double, TimedEntry<S>> {
-  explicit TimedIterator(const Trajectory<double, TimedEntry<S>>& trajectory)
-      : TrajectoryIterator(trajectory) {}
-
   double Addition(const double a, const double b) const override {
     return a + b;
   }
@@ -60,7 +73,8 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
  public:
   TimedTrajectory(const std::vector<TimedEntry<S>>& points, const bool reversed)
       : points_(points), reversed_(reversed) {
-    iterator_ = new TimedIterator<S>(this);
+    iterator_ = new TimedIterator<S>();
+    iterator_->SetTrajectory(this);
   }
 
   ~TimedTrajectory() { delete iterator_; }
@@ -68,7 +82,8 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
   std::vector<TimedEntry<S>> Points() const override { return points_; }
   bool Reversed() const override { return reversed_; }
 
-  TrajectoryPoint<TimedEntry<S>> Sample(const double interpolant) override {
+  TrajectorySamplePoint<TimedEntry<S>> Sample(
+      const double interpolant) override {
     if (interpolant >= LastInterpolant()) {
       return TrajectorySamplePoint<TimedEntry<S>>(
           this->Point(points_.size() - 1));
@@ -78,15 +93,15 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
     }
     for (auto i = 1; i < points_.size(); ++i) {
       const auto s = this->Point(i);
-      if (s.state.t_ >= interpolant) {
+      if (s.state.T() >= interpolant) {
         const auto prev_s = this->Point(i - 1);
-        if (EpsilonEquals(s.state.t_, prev_s.state.t_)) {
+        if (EpsilonEquals(s.state.T(), prev_s.state.T())) {
           return TrajectorySamplePoint<TimedEntry<S>>(s);
         }
         return TrajectorySamplePoint<TimedEntry<S>>(
             prev_s.state.Interpolate(s.state,
-                                     (interpolant - prev_s.state.t_) /
-                                         (s.state.t_ - prev_s.state.t_)),
+                                     (interpolant - prev_s.state.T()) /
+                                         (s.state.T() - prev_s.state.T())),
             i - 1, i);
       }
     }
@@ -97,8 +112,8 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
     return iterator_;
   }
 
-  double FirstInterpolant() const override { return FirstState().t_; }
-  double LastInterpolant() const override { return LastState().t_; }
+  double FirstInterpolant() const override { return FirstState().T(); }
+  double LastInterpolant() const override { return LastState().T(); }
   TimedEntry<S> FirstState() const override { return points_[0]; }
   TimedEntry<S> LastState() const override {
     return points_[points_.size() - 1];

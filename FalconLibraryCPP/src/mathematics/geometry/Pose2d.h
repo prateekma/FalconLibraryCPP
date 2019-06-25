@@ -22,7 +22,7 @@ class Pose2d final : public VaryInterpolatable<Pose2d> {
   double Distance(const Pose2d& other) const override {
     return ToTwist(-*this + other).Norm();
   }
-  Pose2d Interpolate(const Pose2d& end_value, const double t) override {
+  Pose2d Interpolate(const Pose2d& end_value, const double t) const override {
     if (t <= 0) {
       return *this;
     }

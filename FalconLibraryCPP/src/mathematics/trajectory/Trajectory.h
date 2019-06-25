@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utility>
 #include <vector>
 
 namespace frc5190 {
@@ -12,12 +13,24 @@ struct TrajectoryPoint {
 
 template <typename S>
 struct TrajectorySamplePoint {
+
   S state;
   int index_floor;
   int index_ceil;
 
+ public:
   explicit TrajectorySamplePoint(TrajectoryPoint<S> point)
-      : state(point.state), index_floor(point.index), index_ceil(point.index) {}
+      : state(point.state),
+        index_floor(point.index),
+        index_ceil(point.index) {}
+
+  TrajectorySamplePoint(S state, int index_floor, int index_ceil)
+      : state(std::move(state)), index_floor(index_floor), index_ceil(index_ceil) {}
+
+  TrajectorySamplePoint()
+    : index_floor(0),
+      index_ceil(0) {
+  }
 };
 
 template <typename U, typename S>
@@ -30,10 +43,10 @@ class Trajectory {
   virtual bool Reversed() const = 0;
 
   TrajectoryPoint<S> Point(int index) const {
-    return TrajectoryPoint<S>(index, Points()[index]);
+    return TrajectoryPoint<S>{index, Points()[index]};
   }
 
-  virtual TrajectoryPoint<S> Sample(U interpolant) = 0;
+  virtual TrajectorySamplePoint<S> Sample(U interpolant) = 0;
 
   virtual TrajectoryIterator<U, S>* Iterator() const = 0;
 

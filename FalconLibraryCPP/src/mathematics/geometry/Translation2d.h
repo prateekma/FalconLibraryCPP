@@ -21,7 +21,7 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
   }
 
   Translation2d Interpolate(const Translation2d& end_value,
-                            const double t) override {
+                            const double t) const override {
     if (t <= 0) {
       return *this;
     }

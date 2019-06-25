@@ -11,13 +11,15 @@ class Pose2dWithCurvature final
   Pose2dWithCurvature(Pose2d pose, const double curvature, const double dkds)
       : pose_(std::move(pose)), curvature_(curvature), dkds_(dkds) {}
 
+  Pose2dWithCurvature() : pose_(Pose2d{}), curvature_(0.0), dkds_(0.0) {}
+
   // Overriden Methods
   double Distance(const Pose2dWithCurvature& other) const override {
     return pose_.Distance(other.pose_);
   }
 
   Pose2dWithCurvature Interpolate(const Pose2dWithCurvature& end_value,
-                                  double t) override {
+                                  double t) const override {
     return Pose2dWithCurvature{pose_.Interpolate(end_value.pose_, t),
                                Lerp(curvature_, end_value.curvature_, t),
                                Lerp(dkds_, end_value.dkds_, t)};

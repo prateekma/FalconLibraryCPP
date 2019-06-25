@@ -13,7 +13,7 @@ constexpr double kLowestDouble = std::numeric_limits<double>::lowest();
 template <typename S>
 class IndexedIterator : public TrajectoryIterator<double, S> {
  public:
-  explicit IndexedIterator(Trajectory<double, S>* trajectory) : TrajectoryIterator(trajectory) {}
+  IndexedIterator() {}
   double Addition(const double a, const double b) const override {
     return a + b;
   }
@@ -23,7 +23,8 @@ template <typename S>
 class IndexedTrajectory : public Trajectory<double, S> {
  public:
   explicit IndexedTrajectory(const std::vector<S>& points) : points_(points) {
-    iterator_ = new IndexedIterator<S>(this);
+    iterator_ = new IndexedIterator<S>();
+    iterator_->SetTrajectory(this);
   }
 
   ~IndexedTrajectory() { delete iterator_; }
@@ -32,7 +33,7 @@ class IndexedTrajectory : public Trajectory<double, S> {
 
   bool Reversed() const override { return false; }
 
-  TrajectoryPoint<S> Sample(double interpolant) override {
+  TrajectorySamplePoint<S> Sample(double interpolant) override {
     if (points_.empty()) throw - 1;
     if (interpolant <= 0.0) {
       return TrajectorySamplePoint<S>(this->Point(0.0));

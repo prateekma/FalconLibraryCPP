@@ -6,13 +6,17 @@
 namespace frc5190 {
 template <typename U, typename S>
 class TrajectoryIterator {
-
+ public:
+  TrajectoryIterator() {}
   ~TrajectoryIterator() = default;
 
-  explicit TrajectoryIterator(Trajectory<U, S>* trajectory)
-      : trajectory_(trajectory) {}
-
   virtual U Addition(U a, U b) const = 0;
+
+  void SetTrajectory(Trajectory<U, S>* trajectory) {
+    trajectory_ = trajectory;
+    progress_ = trajectory_->FirstInterpolant();
+    sample_ = trajectory_->Sample(progress_);
+  }
 
   TrajectorySamplePoint<S> Advance(U amount) {
     progress_ =
@@ -32,9 +36,9 @@ class TrajectoryIterator {
   bool IsDone() const { return progress_ >= trajectory_->LastInterpolant(); }
   TrajectoryPoint<S> CurrentState() const { return sample_; }
 
- private:
+ protected:
   Trajectory<U, S>* trajectory_;
-  auto progress_ = trajectory_ -> FirstInterpolant();
-  auto sample_ = trajectory_ -> Sample(progress_);
+  U progress_;
+  TrajectorySamplePoint<S> sample_;
 };
 }  // namespace frc5190
