@@ -72,5 +72,14 @@
     <ClInclude Include="src\mathematics\trajectory\constraints\TimingConstraint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\mathematics\trajectory\constraints\CentripetalAccelerationConstraint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mathematics\trajectory\constraints\AngularAccelerationConstraint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mathematics\trajectory\constraints\VelocityLimitRadiusConstraint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
