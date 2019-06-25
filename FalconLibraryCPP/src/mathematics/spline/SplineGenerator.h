@@ -8,6 +8,7 @@ namespace frc5190 {
 constexpr static double kMinSampleSize = 1.;
 
 class SplineGenerator {
+public:
   static std::vector<Pose2dWithCurvature> ParameterizeSpline(
       ParametricSpline* spline, double max_dx, double max_dy, double max_dtheta,
       const double t0 = 0.0, const double t1 = 1.0) {

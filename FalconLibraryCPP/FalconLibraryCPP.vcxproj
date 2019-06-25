@@ -127,6 +127,13 @@
     <ClInclude Include="src\mathematics\spline\ParametricQuinticHermiteSpline.h" />
     <ClInclude Include="src\mathematics\spline\ParametricSpline.h" />
     <ClInclude Include="src\mathematics\spline\SplineGenerator.h" />
+    <ClInclude Include="src\mathematics\trajectory\constraints\TimingConstraint.h" />
+    <ClInclude Include="src\mathematics\trajectory\DistanceTrajectory.h" />
+    <ClInclude Include="src\mathematics\trajectory\IndexedTrajectory.h" />
+    <ClInclude Include="src\mathematics\trajectory\TimedTrajectory.h" />
+    <ClInclude Include="src\mathematics\trajectory\Trajectory.h" />
+    <ClInclude Include="src\mathematics\trajectory\TrajectoryGenerator.h" />
+    <ClInclude Include="src\mathematics\trajectory\TrajectoryIterator.h" />
     <ClInclude Include="src\types\Interpolatable.h" />
     <ClInclude Include="src\mathematics\geometry\Pose2d.h" />
     <ClInclude Include="src\mathematics\geometry\Pose2dWithCurvature.h" />
