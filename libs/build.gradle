@@ -2,6 +2,7 @@ apply plugin: "cpp"
 
 ext.libroot = new File(rootProject.rootDir, "libs")
 ext.gtest_root = new File(libroot, "googletest/googletest")
+ext.gbench_root = new File(libroot, "benchmark")
 
 model {
     components {
@@ -15,6 +16,31 @@ model {
                     srcDirs gtest_root, new File(gtest_root, "include")
                     include "**/*.hpp", "**/*.h"
                 }
+            }
+        }
+        googleBench(NativeLibrarySpec) {
+            binaries.all {
+                if (toolChain instanceof GccCompatibleToolChain) {
+                    cppCompiler.args << '-std=c++14' << '-Wno-deprecated-declarations'
+                    linker.args << '-pthread'
+                } else {
+                    // MSVC
+                    cppCompiler.args << '/std:c++14'
+                    linker.args << 'shlwapi.lib'
+                }
+            }
+
+            sources.cpp {
+                source {
+                    srcDir new File(gbench_root, "src")
+                    include "**/*.cc"
+                    exclude "**/benchmark_main.cc"
+                }
+                exportedHeaders {
+                    srcDirs new File(gbench_root, "src"), new File(gbench_root, "include")
+                    include "**/*.hpp", "**/*.h"
+                }
+                lib project: ':libs', library: "googleTest", linkage: "static"
             }
         }
     }

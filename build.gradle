@@ -25,6 +25,31 @@ model {
         }
     }
     testSuites {
+        falconlibraryBench(GoogleTestTestSuiteSpec) {
+            testing $.components.falconlibrary
+
+            binaries.all {
+                if (toolChain instanceof GccCompatibleToolChain) {
+                    linker.args << '-pthread'
+                } else {
+                    // MSVC
+                    linker.args << 'shlwapi.lib'
+                }
+                if (!project.hasProperty("withBench"))
+                    tasks.withType(RunTestExecutable) { RunTestExecutable task -> 
+                        task.enabled = false
+                    }
+            }
+
+            sources.cpp {
+                source {
+                    srcDir 'src/bench'
+                    include '**/*.cpp'
+                }
+                lib project: ':libs', library: 'googleBench', linkage: 'static'
+            }
+        }
+
         falconlibraryTest(GoogleTestTestSuiteSpec) {
             testing $.components.falconlibrary
             

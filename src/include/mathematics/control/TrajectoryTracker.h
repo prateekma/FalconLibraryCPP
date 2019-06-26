@@ -1,6 +1,6 @@
 #pragma once
-#include "../geometry/Pose2dWithCurvature.h"
-#include "../trajectory/TimedTrajectory.h"
+
+#include "mathematics/trajectory/TimedTrajectory.h"
 
 #include <memory>
 

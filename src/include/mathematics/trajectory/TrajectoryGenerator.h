@@ -28,7 +28,7 @@ class TrajectoryGenerator {
       }
     }
 
-    const auto indexed_trajectory = TrajectoryFromSplineWaypoints(waypoints, 0.051, 0.00127, 0.1);
+    const auto indexed_trajectory = TrajectoryFromSplineWaypoints(waypoints, 2.0, 0.05, 0.1);
 
     auto points = indexed_trajectory.Points();
 
