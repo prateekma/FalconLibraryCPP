@@ -14,9 +14,9 @@ template <typename S>
 class IndexedIterator : public TrajectoryIterator<double, S> {
  public:
   IndexedIterator() {}
-  double Addition(const double a, const double b) const override {
-    return a + b;
-  }
+
+ protected:
+  double Addition(const double a, const double b) const override { return a + b; }
 };
 
 template <typename S>
@@ -40,7 +40,7 @@ class IndexedTrajectory : public Trajectory<double, S> {
       return TrajectorySamplePoint<S>(this->Point(points_.size() - 1));
     }
 
-    const auto index = static_cast<int>(std::floor(interpolant));
+    const auto index   = static_cast<int>(std::floor(interpolant));
     const auto percent = interpolant - index;
 
     if (percent <= kLowestDouble) {
@@ -49,24 +49,19 @@ class IndexedTrajectory : public Trajectory<double, S> {
     if (percent >= 1 - kLowestDouble) {
       return TrajectorySamplePoint<S>(this->Point(index + 1));
     }
-    return TrajectorySamplePoint<S>(
-        points_[index].Interpolate(points_[index], percent), index, index + 1);
+    return TrajectorySamplePoint<S>(points_[index].Interpolate(points_[index], percent), index, index + 1);
   }
 
   double FirstInterpolant() const override { return 0.0; }
-  double LastInterpolant() const override {
-    return std::max(0.0, points_.size() - 1.0);
-  }
+  double LastInterpolant() const override { return std::max(0.0, points_.size() - 1.0); }
 
   S FirstState() const override { return points_[0]; }
   S LastState() const override { return points_[points_.size() - 1]; }
 
-  std::shared_ptr<TrajectoryIterator<double, S>> Iterator() const override {
-    return iterator_;
-  }
+  std::shared_ptr<TrajectoryIterator<double, S>> Iterator() const override { return iterator_; }
 
  private:
-  std::vector<S> points_;
+  std::vector<S>                                 points_;
   std::shared_ptr<TrajectoryIterator<double, S>> iterator_;
 };
 

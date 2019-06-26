@@ -16,11 +16,9 @@ class TimingConstraint {
  public:
   virtual ~TimingConstraint() = default;
   static constexpr MinMaxAcceleration kNoLimits =
-      MinMaxAcceleration{std::numeric_limits<double>::lowest(),
-                         std::numeric_limits<double>::max()};
+      MinMaxAcceleration{std::numeric_limits<double>::lowest(), std::numeric_limits<double>::max()};
 
-  virtual double MaxVelocity(const S& state) const = 0;
-  virtual MinMaxAcceleration MinMaxAcceleration(const S& state,
-                                                double velocity) const = 0;
+  virtual double             MaxVelocity(const S& state) const                         = 0;
+  virtual MinMaxAcceleration MinMaxAcceleration(const S& state, double velocity) const = 0;
 };
 }  // namespace frc5190

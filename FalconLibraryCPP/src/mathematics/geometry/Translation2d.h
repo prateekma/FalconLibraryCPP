@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-#include "Rotation2d.h"
 #include "../../types/VaryInterpolatable.h"
+#include "Rotation2d.h"
 
 namespace frc5190 {
 
@@ -20,16 +20,14 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
     return std::hypot(other.X() - X(), other.Y() - Y());
   }
 
-  Translation2d Interpolate(const Translation2d& end_value,
-                            const double t) const override {
+  Translation2d Interpolate(const Translation2d& end_value, const double t) const override {
     if (t <= 0) {
       return *this;
     }
     if (t >= 1) {
       return end_value;
     }
-    return Translation2d{Lerp(X(), end_value.X(), t),
-                         Lerp(Y(), end_value.Y(), t)};
+    return Translation2d{Lerp(X(), end_value.X(), t), Lerp(Y(), end_value.Y(), t)};
   }
 
   // Operator Overloads
@@ -41,18 +39,14 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
     return Translation2d{X() - other.X(), Y() - other.Y()};
   }
 
-  Translation2d operator*(const double scalar) const {
-    return Translation2d{X() * scalar, Y() * scalar};
-  }
+  Translation2d operator*(const double scalar) const { return Translation2d{X() * scalar, Y() * scalar}; }
 
   Translation2d operator*(const Rotation2d& rotation) const {
     return Translation2d{x_ * rotation.Cos() - y_ * rotation.Sin(),
                          x_ * rotation.Sin() + y_ * rotation.Cos()};
   }
 
-  Translation2d operator/(const double scalar) const {
-    return Translation2d{X() / scalar, Y() / scalar};
-  }
+  Translation2d operator/(const double scalar) const { return Translation2d{X() / scalar, Y() / scalar}; }
 
   Translation2d operator-() const { return Translation2d{-X(), -Y()}; }
 

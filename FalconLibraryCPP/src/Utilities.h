@@ -5,7 +5,7 @@
 namespace frc5190 {
 
 constexpr double kEpsilon = 1E-9;
-constexpr double kPi = 3.14159265358979323846;
+constexpr double kPi      = 3.14159265358979323846;
 
 template <typename T>
 T Clamp(const T& n, const T& lower, const T& upper) {

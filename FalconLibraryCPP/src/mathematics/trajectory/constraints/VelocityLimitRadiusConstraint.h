@@ -5,12 +5,9 @@
 
 namespace frc5190 {
 
-class VelocityLimitRadiusConstraint
-    : public TimingConstraint<Pose2dWithCurvature> {
+class VelocityLimitRadiusConstraint : public TimingConstraint<Pose2dWithCurvature> {
  public:
-  VelocityLimitRadiusConstraint(const Translation2d& point,
-                                const double radius,
-                                const double max_velocity)
+  VelocityLimitRadiusConstraint(const Translation2d& point, const double radius, const double max_velocity)
       : point_(point), radius_(radius), max_velocity_(max_velocity) {}
 
   ~VelocityLimitRadiusConstraint() = default;
@@ -22,15 +19,15 @@ class VelocityLimitRadiusConstraint
     return std::numeric_limits<double>::max();
   }
 
-  frc5190::MinMaxAcceleration MinMaxAcceleration(
-      const Pose2dWithCurvature& state, double velocity) const override {
+  frc5190::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
+                                                 double                     velocity) const override {
     return kNoLimits;
   }
 
  private:
   Translation2d point_;
-  double radius_;
-  double max_velocity_;
+  double        radius_;
+  double        max_velocity_;
 };
 
 }  // namespace frc5190

@@ -7,13 +7,10 @@ class Twist2d {
  public:
   // Constructors
   Twist2d() : dx_(0.0), dy_(0.0), dtheta_(0.0) {}
-  Twist2d(const double dx, const double dy, const double dtheta)
-      : dx_(dx), dy_(dy), dtheta_(dtheta) {}
+  Twist2d(const double dx, const double dy, const double dtheta) : dx_(dx), dy_(dy), dtheta_(dtheta) {}
 
   // Operator Overloads
-  Twist2d operator*(const double scalar) const {
-    return {dx_ * scalar, dy_ * scalar, dtheta_ * scalar};
-  }
+  Twist2d operator*(const double scalar) const { return {dx_ * scalar, dy_ * scalar, dtheta_ * scalar}; }
 
   // Accessors
   double Dx() const { return dx_; }

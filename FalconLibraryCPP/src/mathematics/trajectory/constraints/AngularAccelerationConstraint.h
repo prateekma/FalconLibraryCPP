@@ -5,8 +5,7 @@
 
 namespace frc5190 {
 
-class AngularAccelerationConstraint final
-    : public TimingConstraint<Pose2dWithCurvature> {
+class AngularAccelerationConstraint final : public TimingConstraint<Pose2dWithCurvature> {
  public:
   explicit AngularAccelerationConstraint(double max_angular_acceleration)
       : max_angular_acceleration_(max_angular_acceleration) {}
@@ -23,8 +22,8 @@ class AngularAccelerationConstraint final
     return std::sqrt(max_angular_acceleration_ / std::abs(state.Dkds()));
   }
 
-  frc5190::MinMaxAcceleration MinMaxAcceleration(
-      const Pose2dWithCurvature& state, double velocity) const override {
+  frc5190::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
+                                                 double                     velocity) const override {
     /**
      * We want to limit the acceleration such that we never go above the
      * specified angular acceleration.
@@ -53,12 +52,10 @@ class AngularAccelerationConstraint final
      * acceleration = (dw/dt - (velocity * velocity * d_curvature)) / curvature
      */
 
-    const auto max_absolute_acceleration = std::abs(
-        (max_angular_acceleration_ - (velocity * velocity * state.Dkds())) /
-        state.Curvature());
+    const auto max_absolute_acceleration =
+        std::abs((max_angular_acceleration_ - (velocity * velocity * state.Dkds())) / state.Curvature());
 
-    return frc5190::MinMaxAcceleration{-max_absolute_acceleration,
-                                       max_absolute_acceleration};
+    return frc5190::MinMaxAcceleration{-max_absolute_acceleration, max_absolute_acceleration};
   }
 
  private:

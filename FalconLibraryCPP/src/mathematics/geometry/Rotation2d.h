@@ -8,8 +8,7 @@ class Rotation2d final {
  public:
   // Constructors
   Rotation2d() : value_(0.0), cos_(1.0), sin_(0.0) {}
-  explicit Rotation2d(const double value)
-      : value_(value), cos_(std::cos(value)), sin_(std::sin(value)) {}
+  explicit Rotation2d(const double value) : value_(value), cos_(std::cos(value)), sin_(std::sin(value)) {}
 
   Rotation2d(const double x, const double y, const bool normalize) {
     if (normalize) {
@@ -28,17 +27,14 @@ class Rotation2d final {
     value_ = std::atan2(sin_, cos_);
   }
 
-  static Rotation2d FromDegrees(const double degrees) {
-    return Rotation2d(Deg2Rad(degrees));
-  }
+  static Rotation2d FromDegrees(const double degrees) { return Rotation2d(Deg2Rad(degrees)); }
 
   // Operator Overloads
   Rotation2d operator-(const Rotation2d& other) const { return *this + -other; }
   Rotation2d operator-() const { return Rotation2d(-value_); }
 
   Rotation2d operator+(const Rotation2d& other) const {
-    return Rotation2d{Cos() * other.Cos() - Sin() * other.Sin(),
-                      Cos() * other.Sin() + Sin() * other.Cos(),
+    return Rotation2d{Cos() * other.Cos() - Sin() * other.Sin(), Cos() * other.Sin() + Sin() * other.Cos(),
                       true};
   }
 
@@ -49,9 +45,7 @@ class Rotation2d final {
   double Sin() const { return sin_; }
   double Tan() const { return sin_ / cos_; }
 
-  bool IsParallel(const Rotation2d& other) const {
-    return EpsilonEquals((*this - other).Radians(), 0.0);
-  }
+  bool IsParallel(const Rotation2d& other) const { return EpsilonEquals((*this - other).Radians(), 0.0); }
 
  private:
   double value_;
