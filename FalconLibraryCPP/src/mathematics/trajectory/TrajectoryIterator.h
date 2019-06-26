@@ -29,8 +29,8 @@ class TrajectoryIterator {
     return trajectory_->Sample(progress);
   }
 
-  bool               IsDone() const { return progress_ >= trajectory_->LastInterpolant(); }
-  TrajectoryPoint<S> CurrentState() const { return sample_; }
+  bool                     IsDone() const { return progress_ >= trajectory_->LastInterpolant(); }
+  TrajectorySamplePoint<S> CurrentState() const { return sample_; }
 
  protected:
   virtual U Addition(U a, U b) const = 0;

@@ -59,6 +59,8 @@ class Pose2d final : public VaryInterpolatable<Pose2d> {
     return EpsilonEquals(twist.Dy(), 0.0) && EpsilonEquals(twist.Dtheta(), 0.0);
   }
 
+  Pose2d InFrameOfReferenceOf(const Pose2d& other) const { return (-other) + *this; }
+
   // Static Methods
   static Twist2d ToTwist(const Pose2d& pose) {
     const auto dtheta        = pose.rotation_.Radians();

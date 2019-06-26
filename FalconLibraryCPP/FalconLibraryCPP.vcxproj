@@ -124,6 +124,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\FalconLibrary.h" />
+    <ClInclude Include="src\mathematics\control\RamseteTracker.h" />
+    <ClInclude Include="src\mathematics\control\TrajectoryTracker.h" />
     <ClInclude Include="src\mathematics\spline\ParametricQuinticHermiteSpline.h" />
     <ClInclude Include="src\mathematics\spline\ParametricSpline.h" />
     <ClInclude Include="src\mathematics\spline\SplineGenerator.h" />

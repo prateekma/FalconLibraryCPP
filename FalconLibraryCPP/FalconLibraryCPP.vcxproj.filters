@@ -81,5 +81,11 @@
     <ClInclude Include="src\mathematics\trajectory\constraints\VelocityLimitRadiusConstraint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\mathematics\control\TrajectoryTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mathematics\control\RamseteTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

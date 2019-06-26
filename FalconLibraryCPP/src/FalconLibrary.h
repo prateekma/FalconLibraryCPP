@@ -15,6 +15,8 @@
 
 #include "mathematics/trajectory/TrajectoryGenerator.h"
 
+#include "mathematics/control/RamseteTracker.h"
+
 #include "Utilities.h"
 
 namespace frc5190 {}
