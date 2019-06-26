@@ -10,8 +10,8 @@ class RamseteTracker : public TrajectoryTracker {
   TrajectoryTrackerVelocityOutput CalculateState(const TimedIterator<Pose2dWithCurvature>& iterator,
                                                  const Pose2d& robot_pose) const override {
 
-    const auto reference_state = iterator.CurrentState().state;
-    const auto error           = reference_state.State().Pose().InFrameOfReferenceOf(robot_pose);
+    const TimedEntry<Pose2dWithCurvature> reference_state = iterator.CurrentState().state;
+    const Pose2d error = reference_state.State().Pose().InFrameOfReferenceOf(robot_pose);
 
     const auto vd = reference_state.Velocity();
     const auto wd = vd * reference_state.State().Curvature();
