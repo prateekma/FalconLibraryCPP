@@ -55,7 +55,7 @@ class ParametricQuinticHermiteSpline final : public ParametricSpline {
   }
 
   Rotation2d Heading(const double t) const override {
-    return {Dx(t), Dx(t), true};
+    return {Dx(t), Dy(t), true};
   }
 
   double Curvature(const double t) const override {

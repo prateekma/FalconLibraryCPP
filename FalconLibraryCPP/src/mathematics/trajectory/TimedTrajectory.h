@@ -73,11 +73,9 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
  public:
   TimedTrajectory(const std::vector<TimedEntry<S>>& points, const bool reversed)
       : points_(points), reversed_(reversed) {
-    iterator_ = new TimedIterator<S>();
+    iterator_ = std::make_shared<TimedIterator<S>>();
     iterator_->SetTrajectory(this);
   }
-
-  ~TimedTrajectory() { delete iterator_; }
 
   std::vector<TimedEntry<S>> Points() const override { return points_; }
   bool Reversed() const override { return reversed_; }
@@ -91,7 +89,7 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
     if (interpolant <= FirstInterpolant()) {
       return TrajectorySamplePoint<TimedEntry<S>>(this->Point(0));
     }
-    for (auto i = 1; i < points_.size(); ++i) {
+    for (int i = 1; i < points_.size(); ++i) {
       const auto s = this->Point(i);
       if (s.state.T() >= interpolant) {
         const auto prev_s = this->Point(i - 1);
@@ -108,7 +106,8 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
     throw - 1;
   }
 
-  TrajectoryIterator<double, TimedEntry<S>>* Iterator() const override {
+  std::shared_ptr<TrajectoryIterator<double, TimedEntry<S>>> Iterator()
+      const override {
     return iterator_;
   }
 
@@ -122,7 +121,7 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
  private:
   std::vector<TimedEntry<S>> points_;
   bool reversed_;
-  TimedIterator<S>* iterator_;
+  std::shared_ptr<TrajectoryIterator<double, TimedEntry<S>>> iterator_;
 };
 
 }  // namespace frc5190

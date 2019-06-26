@@ -48,7 +48,7 @@ class Trajectory {
 
   virtual TrajectorySamplePoint<S> Sample(U interpolant) = 0;
 
-  virtual TrajectoryIterator<U, S>* Iterator() const = 0;
+  virtual std::shared_ptr<TrajectoryIterator<U, S>> Iterator() const = 0;
 
   virtual U FirstInterpolant() const = 0;
   virtual U LastInterpolant() const = 0;

@@ -13,21 +13,21 @@ class TrajectoryTest : public ::testing::Test {
            bool backwards = false) {
     auto trajectory = frc5190::TrajectoryGenerator::GenerateTrajectory(
         std::vector<frc5190::Pose2d>{initial, final},
-        std::vector<frc5190::TimingConstraint<frc5190::Pose2dWithCurvature>*>{new frc5190::CentripetalAccelerationConstraint{100.0}},
+        std::vector<frc5190::TimingConstraint<frc5190::Pose2dWithCurvature>*>{
+            new frc5190::CentripetalAccelerationConstraint{100.0}},
         0.0, 0.0, max_velocity, max_acceleration, backwards);
 
     auto pose = trajectory.Sample(0.0).state.State().Pose();
 
-    /*
+    EXPECT_FALSE(false);
+
     EXPECT_NEAR(pose.Translation().X(), initial.Translation().X(),
                 kTestEpsilon);
     EXPECT_NEAR(pose.Translation().Y(), initial.Translation().Y(),
                 kTestEpsilon);
-    EXPECT_NEAR(pose.Rotation().Radians(), initial.Rotation().Degrees(),
+    EXPECT_NEAR(pose.Rotation().Radians(), initial.Rotation().Radians(),
                 kTestEpsilon);
-    */
 
-    /*
     const auto iterator = trajectory.Iterator();
 
     auto sample = iterator->Advance(0.0);
@@ -51,9 +51,8 @@ class TrajectoryTest : public ::testing::Test {
 
     EXPECT_NEAR(pose1.Translation().X(), final.Translation().X(), kTestEpsilon);
     EXPECT_NEAR(pose1.Translation().Y(), final.Translation().Y(), kTestEpsilon);
-    EXPECT_NEAR(pose1.Rotation().Radians(), final.Rotation().Degrees(),
+    EXPECT_NEAR(pose1.Rotation().Radians(), final.Rotation().Radians(),
                 kTestEpsilon);
-      */
   }
 };
 

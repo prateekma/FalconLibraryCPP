@@ -23,11 +23,9 @@ template <typename S>
 class IndexedTrajectory : public Trajectory<double, S> {
  public:
   explicit IndexedTrajectory(const std::vector<S>& points) : points_(points) {
-    iterator_ = new IndexedIterator<S>();
+    iterator_ = std::make_shared<IndexedIterator<S>>();
     iterator_->SetTrajectory(this);
   }
-
-  ~IndexedTrajectory() { delete iterator_; }
 
   std::vector<S> Points() const override { return points_; }
 
@@ -63,11 +61,13 @@ class IndexedTrajectory : public Trajectory<double, S> {
   S FirstState() const override { return points_[0]; }
   S LastState() const override { return points_[points_.size() - 1]; }
 
-  TrajectoryIterator<double, S>* Iterator() const override { return iterator_; }
+  std::shared_ptr<TrajectoryIterator<double, S>> Iterator() const override {
+    return iterator_;
+  }
 
  private:
   std::vector<S> points_;
-  IndexedIterator<S>* iterator_;
+  std::shared_ptr<TrajectoryIterator<double, S>> iterator_;
 };
 
 }  // namespace frc5190

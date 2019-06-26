@@ -14,18 +14,16 @@ template <typename S>
 class DistanceTrajectory : public Trajectory<double, S> {
  public:
   explicit DistanceTrajectory(std::vector<S> points) : points_(points) {
-    iterator_ = new DistanceIterator<S>;
+    iterator_ = std::make_shared<DistanceIterator<S>>();
 
     distances_.push_back(0.0);
-    for (auto i = 1; i < points_.size(); ++i) {
+    for (int i = 1; i < points_.size(); ++i) {
       distances_.push_back(distances_[i - 1] +
                            points_[i - 1].Distance(points_[i]));
     }
 
     iterator_->SetTrajectory(this);
   }
-
-  ~DistanceTrajectory() { delete iterator_; }
 
   std::vector<S> Points() const override { return points_; }
 
@@ -39,7 +37,7 @@ class DistanceTrajectory : public Trajectory<double, S> {
       return TrajectorySamplePoint<S>(this->Point(0));
     }
 
-    for (auto i = 1; i < distances_.size(); ++i) {
+    for (int i = 1; i < distances_.size(); ++i) {
       const auto s = points_[i];
       if (distances_[i] >= interpolant) {
         const auto prev_s = points_[i - 1];
@@ -55,7 +53,9 @@ class DistanceTrajectory : public Trajectory<double, S> {
     throw - 1;
   }
 
-  TrajectoryIterator<double, S>* Iterator() const override { return iterator_; }
+  std::shared_ptr<TrajectoryIterator<double, S>> Iterator() const override {
+    return iterator_;
+  }
 
   double FirstInterpolant() const override { return 0; }
   double LastInterpolant() const override {
@@ -68,6 +68,6 @@ class DistanceTrajectory : public Trajectory<double, S> {
  private:
   std::vector<double> distances_;
   std::vector<S> points_;
-  DistanceIterator<S>* iterator_;
+  std::shared_ptr<DistanceIterator<S>> iterator_;
 };
 }  // namespace frc5190
