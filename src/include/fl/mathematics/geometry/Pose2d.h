@@ -1,9 +1,9 @@
 #pragma once
 
-#include "fl/Utilities.h"
 #include "Rotation2d.h"
 #include "Translation2d.h"
 #include "Twist2d.h"
+#include "fl/Utilities.h"
 
 namespace fl {
 class Twist2d;
@@ -103,4 +103,4 @@ class Pose2d final : public VaryInterpolatable<Pose2d> {
   Translation2d translation_;
   Rotation2d    rotation_;
 };
-}  // namespace frc5190
+}  // namespace fl

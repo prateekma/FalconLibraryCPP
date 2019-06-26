@@ -37,4 +37,4 @@ class Pose2dWithCurvature final : public VaryInterpolatable<Pose2dWithCurvature>
   double curvature_;
   double dkds_;
 };
-}  // namespace frc5190
+}  // namespace fl

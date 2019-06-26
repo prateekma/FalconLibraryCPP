@@ -1,7 +1,7 @@
 #pragma once
 
-#include "fl/types/VaryInterpolatable.h"
 #include "TrajectoryIterator.h"
+#include "fl/types/VaryInterpolatable.h"
 
 namespace fl {
 template <typename S>
@@ -97,4 +97,4 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
   std::shared_ptr<TrajectoryIterator<double, TimedEntry<S>>> iterator_;
 };
 
-}  // namespace frc5190
+}  // namespace fl

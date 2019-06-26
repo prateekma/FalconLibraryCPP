@@ -1,10 +1,10 @@
 #pragma once
 
-#include <vector>
 #include <memory>
+#include <vector>
 
-#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
 #include "ParametricSpline.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
 
 namespace fl {
 constexpr static double kMinSampleSize = 1.;
@@ -62,4 +62,4 @@ class SplineGenerator {
     }
   }
 };
-}  // namespace frc5190
+}  // namespace fl

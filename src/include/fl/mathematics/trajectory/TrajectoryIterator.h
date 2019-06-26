@@ -1,7 +1,7 @@
 #pragma once
 
-#include "fl/Utilities.h"
 #include "Trajectory.h"
+#include "fl/Utilities.h"
 
 namespace fl {
 template <typename U, typename S>
@@ -40,4 +40,4 @@ class TrajectoryIterator {
   U                        progress_;
   TrajectorySamplePoint<S> sample_;
 };
-}  // namespace frc5190
+}  // namespace fl

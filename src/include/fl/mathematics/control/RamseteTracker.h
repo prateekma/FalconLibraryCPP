@@ -9,7 +9,6 @@ class RamseteTracker : public TrajectoryTracker {
 
   TrajectoryTrackerVelocityOutput CalculateState(const TimedIterator<Pose2dWithCurvature>& iterator,
                                                  const Pose2d& robot_pose) const override {
-
     const TimedEntry<Pose2dWithCurvature> reference_state = iterator.CurrentState().state;
     const Pose2d error = reference_state.State().Pose().InFrameOfReferenceOf(robot_pose);
 
@@ -36,4 +35,4 @@ class RamseteTracker : public TrajectoryTracker {
   double beta_;
   double zeta_;
 };
-}  // namespace frc5190
+}  // namespace fl

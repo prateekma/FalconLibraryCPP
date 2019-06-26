@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-#include "fl/types/VaryInterpolatable.h"
 #include "Rotation2d.h"
+#include "fl/types/VaryInterpolatable.h"
 
 namespace fl {
 
@@ -58,4 +58,4 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
   double x_;
   double y_;
 };
-}  // namespace frc5190
+}  // namespace fl

@@ -21,4 +21,4 @@ class TimingConstraint {
   virtual double             MaxVelocity(const S& state) const                         = 0;
   virtual MinMaxAcceleration MinMaxAcceleration(const S& state, double velocity) const = 0;
 };
-}  // namespace frc5190
+}  // namespace fl

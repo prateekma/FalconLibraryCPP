@@ -2,13 +2,13 @@
 
 #include <array>
 
-#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
-#include "fl/mathematics/spline/ParametricQuinticHermiteSpline.h"
-#include "fl/mathematics/spline/SplineGenerator.h"
 #include "DistanceTrajectory.h"
 #include "IndexedTrajectory.h"
 #include "TimedTrajectory.h"
 #include "constraints/TimingConstraint.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
+#include "fl/mathematics/spline/ParametricQuinticHermiteSpline.h"
+#include "fl/mathematics/spline/SplineGenerator.h"
 
 namespace fl {
 
@@ -256,4 +256,4 @@ class TrajectoryGenerator {
     return TimedTrajectory<S>(timed_states, reversed);
   }
 };
-}  // namespace frc5190
+}  // namespace fl

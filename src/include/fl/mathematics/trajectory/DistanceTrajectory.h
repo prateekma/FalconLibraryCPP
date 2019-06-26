@@ -66,4 +66,4 @@ class DistanceTrajectory : public Trajectory<double, S> {
   std::vector<S>                       points_;
   std::shared_ptr<DistanceIterator<S>> iterator_;
 };
-}  // namespace frc5190
+}  // namespace fl
