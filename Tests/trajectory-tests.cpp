@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "../FalconLibraryCPP/src/FalconLibrary.h"
-#include "../FalconLibraryCPP/src/mathematics/trajectory/constraints/CentripetalAccelerationConstraint.h"
 
 constexpr double kTestEpsilon = 1E-6;
 
@@ -8,25 +7,30 @@ class TrajectoryTest : public ::testing::Test {
  public:
   TrajectoryTest() {}
 
-  void Run(frc5190::Pose2d initial, frc5190::Pose2d final,
-           double max_velocity = 3, double max_acceleration = 2,
+  void Run(frc5190::Pose2d initial,
+           frc5190::Pose2d final,
+           double max_velocity = 3,
+           double max_acceleration = 2,
            bool backwards = false) {
     auto trajectory = frc5190::TrajectoryGenerator::GenerateTrajectory(
         std::vector<frc5190::Pose2d>{initial, final},
-        std::vector<frc5190::TimingConstraint<frc5190::Pose2dWithCurvature>*>{
-            new frc5190::CentripetalAccelerationConstraint{100.0}},
-        0.0, 0.0, max_velocity, max_acceleration, backwards);
+        std::vector<frc5190::TimingConstraint<frc5190::Pose2dWithCurvature>*>{},
+        0.0,
+        0.0,
+        max_velocity,
+        max_acceleration,
+        backwards);
 
     auto pose = trajectory.Sample(0.0).state.State().Pose();
 
     EXPECT_FALSE(false);
 
-    EXPECT_NEAR(pose.Translation().X(), initial.Translation().X(),
-                kTestEpsilon);
-    EXPECT_NEAR(pose.Translation().Y(), initial.Translation().Y(),
-                kTestEpsilon);
-    EXPECT_NEAR(pose.Rotation().Radians(), initial.Rotation().Radians(),
-                kTestEpsilon);
+    EXPECT_NEAR(
+        pose.Translation().X(), initial.Translation().X(), kTestEpsilon);
+    EXPECT_NEAR(
+        pose.Translation().Y(), initial.Translation().Y(), kTestEpsilon);
+    EXPECT_NEAR(
+        pose.Rotation().Radians(), initial.Rotation().Radians(), kTestEpsilon);
 
     const auto iterator = trajectory.Iterator();
 
@@ -51,8 +55,8 @@ class TrajectoryTest : public ::testing::Test {
 
     EXPECT_NEAR(pose1.Translation().X(), final.Translation().X(), kTestEpsilon);
     EXPECT_NEAR(pose1.Translation().Y(), final.Translation().Y(), kTestEpsilon);
-    EXPECT_NEAR(pose1.Rotation().Radians(), final.Rotation().Radians(),
-                kTestEpsilon);
+    EXPECT_NEAR(
+        pose1.Rotation().Radians(), final.Rotation().Radians(), kTestEpsilon);
   }
 };
 

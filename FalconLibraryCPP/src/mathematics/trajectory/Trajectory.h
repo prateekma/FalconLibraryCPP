@@ -13,24 +13,20 @@ struct TrajectoryPoint {
 
 template <typename S>
 struct TrajectorySamplePoint {
-
   S state;
   int index_floor;
   int index_ceil;
 
  public:
   explicit TrajectorySamplePoint(TrajectoryPoint<S> point)
-      : state(point.state),
-        index_floor(point.index),
-        index_ceil(point.index) {}
+      : state(point.state), index_floor(point.index), index_ceil(point.index) {}
 
   TrajectorySamplePoint(S state, int index_floor, int index_ceil)
-      : state(std::move(state)), index_floor(index_floor), index_ceil(index_ceil) {}
+      : state(std::move(state)),
+        index_floor(index_floor),
+        index_ceil(index_ceil) {}
 
-  TrajectorySamplePoint()
-    : index_floor(0),
-      index_ceil(0) {
-  }
+  TrajectorySamplePoint() : index_floor(0), index_ceil(0) {}
 };
 
 template <typename U, typename S>

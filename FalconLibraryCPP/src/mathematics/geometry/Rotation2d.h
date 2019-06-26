@@ -38,7 +38,8 @@ class Rotation2d final {
 
   Rotation2d operator+(const Rotation2d& other) const {
     return Rotation2d{Cos() * other.Cos() - Sin() * other.Sin(),
-                      Cos() * other.Sin() + Sin() * other.Cos(), true};
+                      Cos() * other.Sin() + Sin() * other.Cos(),
+                      true};
   }
 
   // Accessors

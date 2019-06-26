@@ -7,18 +7,16 @@ namespace frc5190 {
 template <typename S>
 class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
  public:
-  TimedEntry(const S& state, const double t, const double velocity,
+  TimedEntry(const S& state,
+             const double t,
+             const double velocity,
              const double acceleration)
       : state_(state),
         t_(t),
         velocity_(velocity),
         acceleration_(acceleration) {}
 
-  TimedEntry()
-    : t_(0),
-      velocity_(0),
-      acceleration_(0) {
-  }
+  TimedEntry() : t_(0), velocity_(0), acceleration_(0) {}
 
   TimedEntry<S> Interpolate(const TimedEntry<S>& end_value,
                             double t) const override {
@@ -38,7 +36,9 @@ class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
     return TimedEntry{
         state_.Interpolate(end_value.state_,
                            new_s / state_.Distance(end_value.state_)),
-        new_t, new_v, acceleration_};
+        new_t,
+        new_v,
+        acceleration_};
   }
 
   double Distance(const TimedEntry<S>& other) const override {
@@ -100,7 +100,8 @@ class TimedTrajectory : public Trajectory<double, TimedEntry<S>> {
             prev_s.state.Interpolate(s.state,
                                      (interpolant - prev_s.state.T()) /
                                          (s.state.T() - prev_s.state.T())),
-            i - 1, i);
+            i - 1,
+            i);
       }
     }
     throw - 1;

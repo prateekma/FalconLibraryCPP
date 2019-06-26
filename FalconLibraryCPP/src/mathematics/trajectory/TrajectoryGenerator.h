@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 #include "../geometry/Pose2dWithCurvature.h"
 #include "../spline/ParametricQuinticHermiteSpline.h"
 #include "../spline/SplineGenerator.h"
@@ -16,8 +15,11 @@ class TrajectoryGenerator {
   static TimedTrajectory<Pose2dWithCurvature> GenerateTrajectory(
       std::vector<Pose2d> waypoints,
       const std::vector<TimingConstraint<Pose2dWithCurvature>*>& constraints,
-      const double start_velocity, const double end_velocity,
-      const double max_velocity, const double max_acceleration, bool reversed) {
+      const double start_velocity,
+      const double end_velocity,
+      const double max_velocity,
+      const double max_acceleration,
+      const bool reversed) {
     const auto flipped_position =
         Pose2d{Translation2d{}, Rotation2d::FromDegrees(180.0)};
 
@@ -35,19 +37,27 @@ class TrajectoryGenerator {
     if (reversed) {
       for (auto& point : points) {
         point = Pose2dWithCurvature{point.Pose().TransformBy(flipped_position),
-                                    -point.Curvature(), point.Dkds()};
+                                    -point.Curvature(),
+                                    point.Dkds()};
       }
     }
 
     return TimeParameterizeTrajectory(
-        DistanceTrajectory<Pose2dWithCurvature>(points), constraints,
-        start_velocity, end_velocity, max_velocity, max_acceleration, 0.051,
+        DistanceTrajectory<Pose2dWithCurvature>(points),
+        constraints,
+        start_velocity,
+        end_velocity,
+        max_velocity,
+        max_acceleration,
+        0.051,
         reversed);
   }
 
   static IndexedTrajectory<Pose2dWithCurvature> TrajectoryFromSplineWaypoints(
-      const std::vector<Pose2d>& waypoints, const double max_dx,
-      const double max_dy, const double max_dtheta) {
+      const std::vector<Pose2d>& waypoints,
+      const double max_dx,
+      const double max_dy,
+      const double max_dtheta) {
     auto size = static_cast<int>(waypoints.size());
     std::vector<ParametricSpline*> splines(size - 1);
     for (int i = 1; i < waypoints.size(); ++i) {
@@ -55,8 +65,8 @@ class TrajectoryGenerator {
           new ParametricQuinticHermiteSpline(waypoints[i - 1], waypoints[i]);
     }
     auto trajectory = IndexedTrajectory<Pose2dWithCurvature>(
-        SplineGenerator::ParameterizeSplines(splines, max_dx, max_dy,
-                                             max_dtheta));
+        SplineGenerator::ParameterizeSplines(
+            splines, max_dx, max_dy, max_dtheta));
 
     for (auto ptr : splines) {
       delete ptr;
@@ -76,7 +86,8 @@ class TrajectoryGenerator {
 
   template <typename S>
   static void EnforceAccelerationLimits(
-      bool reverse, std::vector<TimingConstraint<S>*> constraints,
+      bool reverse,
+      std::vector<TimingConstraint<S>*> constraints,
       ConstrainedPose<S>* constrained_pose) {
     for (const auto& constraint : constraints) {
       auto min_max_accel = constraint->MinMaxAcceleration(
@@ -101,8 +112,12 @@ class TrajectoryGenerator {
   static TimedTrajectory<S> TimeParameterizeTrajectory(
       DistanceTrajectory<S> distance_trajectory,
       std::vector<TimingConstraint<Pose2dWithCurvature>*> constraints,
-      double start_velocity, double end_velocity, double max_velocity,
-      double max_acceleration, double step_size, bool reversed) {
+      double start_velocity,
+      double end_velocity,
+      double max_velocity,
+      double max_acceleration,
+      double step_size,
+      bool reversed) {
     const auto num_states = static_cast<int>(
         std::ceil(distance_trajectory.LastInterpolant() / step_size + 1));
 
@@ -126,8 +141,8 @@ class TrajectoryGenerator {
 
     std::vector<ConstrainedPose<S>> constrained_poses(num_states);
 
-    auto _predecessor = ConstrainedPose<S>{states[0], 0.0, start_velocity,
-                                           -max_acceleration, max_acceleration};
+    auto _predecessor = ConstrainedPose<S>{
+        states[0], 0.0, start_velocity, -max_acceleration, max_acceleration};
     ConstrainedPose<S>* predecessor = &_predecessor;
 
     for (int i = 0; i < states.size(); ++i) {
@@ -196,7 +211,9 @@ class TrajectoryGenerator {
     auto _successor =
         ConstrainedPose<S>{states[states.size() - 1],
                            constrained_poses[states.size() - 1].distance,
-                           end_velocity, -max_acceleration, max_acceleration};
+                           end_velocity,
+                           -max_acceleration,
+                           max_acceleration};
     ConstrainedPose<S>* successor = &_successor;
 
     for (int i = states.size() - 1; i >= 0; --i) {
@@ -268,9 +285,10 @@ class TrajectoryGenerator {
 
       v = constrained_pose.max_velocity;
       s = constrained_pose.distance;
-      timed_states[i] =
-          TimedEntry<S>{constrained_pose.state, t, reversed ? -v : v,
-                        reversed ? -accel : accel};
+      timed_states[i] = TimedEntry<S>{constrained_pose.state,
+                                      t,
+                                      reversed ? -v : v,
+                                      reversed ? -accel : accel};
 
       t += dt;
     }

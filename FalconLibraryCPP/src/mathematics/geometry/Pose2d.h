@@ -82,8 +82,8 @@ class Pose2d final : public VaryInterpolatable<Pose2d> {
         pose.translation_ *
         Rotation2d{half_theta_by_tan_of_half_dtheta, -half_dtheta, false};
 
-    return Twist2d{translation_part.X(), translation_part.Y(),
-                   pose.rotation_.Radians()};
+    return Twist2d{
+        translation_part.X(), translation_part.Y(), pose.rotation_.Radians()};
   }
 
   static Pose2d FromTwist(const Twist2d& twist) {

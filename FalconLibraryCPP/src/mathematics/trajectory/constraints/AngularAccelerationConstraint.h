@@ -13,7 +13,6 @@ class AngularAccelerationConstraint final
 
   ~AngularAccelerationConstraint() = default;
 
-
   double MaxVelocity(const Pose2dWithCurvature& state) const override {
     /**
      * We don't want v^2 * dk/ds alone to go over the max angular acceleration.

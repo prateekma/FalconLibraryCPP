@@ -7,7 +7,6 @@ namespace frc5190 {
 
 class CentripetalAccelerationConstraint final
     : public TimingConstraint<Pose2dWithCurvature> {
-
  public:
   explicit CentripetalAccelerationConstraint(
       const double max_centripetal_acceleration)

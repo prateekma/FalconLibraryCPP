@@ -45,9 +45,11 @@ class DistanceTrajectory : public Trajectory<double, S> {
           return TrajectorySamplePoint<S>(s, i, i);
         }
         return TrajectorySamplePoint<S>(
-            prev_s.Interpolate(s, (interpolant - distances_[i - 1]) /
-                                      (distances_[i] - distances_[i - 1])),
-            i - 1, i);
+            prev_s.Interpolate(s,
+                               (interpolant - distances_[i - 1]) /
+                                   (distances_[i] - distances_[i - 1])),
+            i - 1,
+            i);
       }
     }
     throw - 1;

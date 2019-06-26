@@ -8,7 +8,8 @@ namespace frc5190 {
 class VelocityLimitRadiusConstraint
     : public TimingConstraint<Pose2dWithCurvature> {
  public:
-  VelocityLimitRadiusConstraint(const Translation2d& point, const double radius,
+  VelocityLimitRadiusConstraint(const Translation2d& point,
+                                const double radius,
                                 const double max_velocity)
       : point_(point), radius_(radius), max_velocity_(max_velocity) {}
 

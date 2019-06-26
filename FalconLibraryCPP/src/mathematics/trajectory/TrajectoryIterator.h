@@ -19,17 +19,17 @@ class TrajectoryIterator {
   }
 
   TrajectorySamplePoint<S> Advance(U amount) {
-    progress_ =
-        Clamp(Addition(progress_, amount), trajectory_->FirstInterpolant(),
-              trajectory_->LastInterpolant());
+    progress_ = Clamp(Addition(progress_, amount),
+                      trajectory_->FirstInterpolant(),
+                      trajectory_->LastInterpolant());
     sample_ = trajectory_->Sample(progress_);
     return sample_;
   }
 
   TrajectorySamplePoint<S> Preview(U amount) {
-    auto progress =
-        Clamp(Addition(progress_, amount), trajectory_->FirstInterpolant(),
-              trajectory_->LastInterpolant());
+    auto progress = Clamp(Addition(progress_, amount),
+                          trajectory_->FirstInterpolant(),
+                          trajectory_->LastInterpolant());
     return trajectory_->Sample(progress);
   }
 
