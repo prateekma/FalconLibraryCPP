@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../geometry/Pose2dWithCurvature.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
 #include "TimingConstraint.h"
 
-namespace frc5190 {
+namespace fl {
 
 class AngularAccelerationConstraint final : public TimingConstraint<Pose2dWithCurvature> {
  public:
@@ -22,7 +22,7 @@ class AngularAccelerationConstraint final : public TimingConstraint<Pose2dWithCu
     return std::sqrt(max_angular_acceleration_ / std::abs(state.Dkds()));
   }
 
-  frc5190::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
+  fl::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
                                                  double                     velocity) const override {
     /**
      * We want to limit the acceleration such that we never go above the
@@ -55,7 +55,7 @@ class AngularAccelerationConstraint final : public TimingConstraint<Pose2dWithCu
     const auto max_absolute_acceleration =
         std::abs((max_angular_acceleration_ - (velocity * velocity * state.Dkds())) / state.Curvature());
 
-    return frc5190::MinMaxAcceleration{-max_absolute_acceleration, max_absolute_acceleration};
+    return fl::MinMaxAcceleration{-max_absolute_acceleration, max_absolute_acceleration};
   }
 
  private:

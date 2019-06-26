@@ -3,10 +3,10 @@
 #include <vector>
 #include <memory>
 
-#include "../geometry/Pose2dWithCurvature.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
 #include "ParametricSpline.h"
 
-namespace frc5190 {
+namespace fl {
 constexpr static double kMinSampleSize = 1.;
 
 class SplineGenerator {

@@ -3,7 +3,7 @@
 #include <utility>
 #include "Pose2d.h"
 
-namespace frc5190 {
+namespace fl {
 class Pose2dWithCurvature final : public VaryInterpolatable<Pose2dWithCurvature> {
  public:
   // Constructors

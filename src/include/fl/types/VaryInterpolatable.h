@@ -2,7 +2,7 @@
 
 #include "Interpolatable.h"
 
-namespace frc5190 {
+namespace fl {
 template <typename T>
 class VaryInterpolatable : public Interpolatable<T> {
  public:

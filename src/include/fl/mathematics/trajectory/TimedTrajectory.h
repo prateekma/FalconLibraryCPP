@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../types/VaryInterpolatable.h"
+#include "fl/types/VaryInterpolatable.h"
 #include "TrajectoryIterator.h"
 
-namespace frc5190 {
+namespace fl {
 template <typename S>
 class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
  public:

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../geometry/Pose2dWithCurvature.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
 #include "TimingConstraint.h"
 
-namespace frc5190 {
+namespace fl {
 
 class VelocityLimitRadiusConstraint : public TimingConstraint<Pose2dWithCurvature> {
  public:
@@ -19,7 +19,7 @@ class VelocityLimitRadiusConstraint : public TimingConstraint<Pose2dWithCurvatur
     return std::numeric_limits<double>::max();
   }
 
-  frc5190::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
+  fl::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
                                                  double                     velocity) const override {
     return kNoLimits;
   }

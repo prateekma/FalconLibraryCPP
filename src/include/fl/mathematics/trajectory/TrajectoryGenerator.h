@@ -2,15 +2,15 @@
 
 #include <array>
 
-#include "../geometry/Pose2dWithCurvature.h"
-#include "../spline/ParametricQuinticHermiteSpline.h"
-#include "../spline/SplineGenerator.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
+#include "fl/mathematics/spline/ParametricQuinticHermiteSpline.h"
+#include "fl/mathematics/spline/SplineGenerator.h"
 #include "DistanceTrajectory.h"
 #include "IndexedTrajectory.h"
 #include "TimedTrajectory.h"
 #include "constraints/TimingConstraint.h"
 
-namespace frc5190 {
+namespace fl {
 
 class TrajectoryGenerator {
   using Constraints = std::vector<TimingConstraint<Pose2dWithCurvature>*>;

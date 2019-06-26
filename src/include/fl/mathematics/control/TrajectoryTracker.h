@@ -1,10 +1,10 @@
 #pragma once
 
-#include "mathematics/trajectory/TimedTrajectory.h"
+#include "fl/mathematics/trajectory/TimedTrajectory.h"
 
 #include <memory>
 
-namespace frc5190 {
+namespace fl {
 
 struct TrajectoryTrackerVelocityOutput {
   double linear_velocity  = 0.0;

@@ -1,7 +1,7 @@
 #pragma once
-#include "../geometry/Pose2dWithCurvature.h"
+#include "fl/mathematics/geometry/Pose2dWithCurvature.h"
 
-namespace frc5190 {
+namespace fl {
 class ParametricSpline {
  public:
   virtual Translation2d Point(double t) const      = 0;

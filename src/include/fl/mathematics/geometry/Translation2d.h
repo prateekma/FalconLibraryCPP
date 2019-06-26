@@ -2,10 +2,10 @@
 
 #include <cmath>
 
-#include "../../types/VaryInterpolatable.h"
+#include "fl/types/VaryInterpolatable.h"
 #include "Rotation2d.h"
 
-namespace frc5190 {
+namespace fl {
 
 class Translation2d final : public VaryInterpolatable<Translation2d> {
  public:
