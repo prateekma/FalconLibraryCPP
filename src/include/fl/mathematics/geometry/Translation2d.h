@@ -54,6 +54,8 @@ class Translation2d final : public VaryInterpolatable<Translation2d> {
   double X() const { return x_; }
   double Y() const { return y_; }
 
+  double Norm() const { return std::hypot(x_, y_); }
+
  private:
   double x_;
   double y_;

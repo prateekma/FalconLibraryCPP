@@ -23,7 +23,7 @@ class TrajectoryIterator {
     return sample_;
   }
 
-  TrajectorySamplePoint<S> Preview(U amount) {
+  TrajectorySamplePoint<S> Preview(U amount) const {
     auto progress =
         Clamp(Addition(progress_, amount), trajectory_->FirstInterpolant(), trajectory_->LastInterpolant());
     return trajectory_->Sample(progress);
@@ -31,6 +31,9 @@ class TrajectoryIterator {
 
   bool                     IsDone() const { return progress_ >= trajectory_->LastInterpolant(); }
   TrajectorySamplePoint<S> CurrentState() const { return sample_; }
+
+  U    Progress() const { return progress_; }
+  bool Reversed() const { return trajectory_->Reversed(); }
 
  protected:
   virtual U Addition(U a, U b) const = 0;

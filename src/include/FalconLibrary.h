@@ -10,6 +10,7 @@
 
 #include "fl/mathematics/control/RamseteTracker.h"
 #include "fl/mathematics/control/TrajectoryTracker.h"
+#include "fl/mathematics/control/PurePursuitTracker.h"
 
 #include "fl/mathematics/spline/ParametricQuinticHermiteSpline.h"
 #include "fl/mathematics/spline/ParametricSpline.h"
