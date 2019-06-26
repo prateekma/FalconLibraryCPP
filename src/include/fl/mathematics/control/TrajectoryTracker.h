@@ -45,13 +45,14 @@ class TrajectoryTracker {
       return {linear_velocity, 0.0, angular_velocity, 0.0};
     }
 
-    const auto previous_velocity = *previous_velocity_;
+    TrajectoryTrackerOutput output{
+        linear_velocity, (linear_velocity - previous_velocity_->linear_velocity) / dt, angular_velocity,
+        (angular_velocity - previous_velocity_->angular_velocity) / dt};
 
     previous_velocity_->linear_velocity  = linear_velocity;
     previous_velocity_->angular_velocity = angular_velocity;
 
-    return {linear_velocity, (linear_velocity - previous_velocity.linear_velocity) / dt, angular_velocity,
-            (angular_velocity - previous_velocity.angular_velocity) / dt};
+    return output;
   }
 
   virtual TrajectoryTrackerVelocityOutput CalculateState(const TimedIterator<Pose2dWithCurvature>& iterator,
