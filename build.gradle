@@ -1,0 +1,39 @@
+plugins {
+    id "cpp"
+    id "google-test-test-suite"
+    id "visual-studio"
+}
+
+model {
+    components {
+        falconlibrary(NativeLibrarySpec) {
+            sources.cpp {
+                source {
+                    srcDir "src/cpp"
+                    include "**/*.cpp"
+                }
+                exportedHeaders {
+                    srcDir "src/include"
+                    include "**/*.h"
+                }
+            }
+        }
+    }
+    binaries {
+        withType(GoogleTestTestSuiteBinarySpec) {
+            lib project: ":libs", library: "googleTest", linkage: "static"
+        }
+    }
+    testSuites {
+        falconlibraryTest(GoogleTestTestSuiteSpec) {
+            testing $.components.falconlibrary
+            
+            sources.cpp {
+                source {
+                    srcDir "src/test/cpp"
+                    include "**/*.cpp"
+                }
+            }
+        }
+    }
+}

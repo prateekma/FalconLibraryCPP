@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "../FalconLibraryCPP/src/FalconLibrary.h"
+#include <gtest/gtest.h>
+#include "FalconLibrary.h"
 
 class RamseteTest : public ::testing::Test {
  public:
