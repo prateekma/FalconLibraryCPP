@@ -21,30 +21,35 @@ struct TrajectoryTrackerOutput {
 class TrajectoryTracker {
  public:
   void Reset(const TimedTrajectory<Pose2dWithCurvature>& trajectory) {
-    iterator_          = dynamic_cast<TimedIterator<Pose2dWithCurvature>*>(trajectory.Iterator().get());
+    iterator_          = static_cast<TimedIterator<Pose2dWithCurvature>*>(trajectory.Iterator().get());
     previous_velocity_ = nullptr;
     previous_time_     = -1.;
   }
 
   TrajectoryTrackerOutput NextState(const Pose2d& current_pose, const double current_time) {
     if (iterator_ == nullptr) throw std::exception("Iterator was nullptr.");
-    const auto& iterator = *iterator_;
+    auto& iterator = *iterator_;
 
     const auto dt  = (previous_time_ < 0.0) ? 0.0 : current_time - previous_time_;
     previous_time_ = current_time;
 
-    const auto velocity          = CalculateState(iterator, current_pose);
-    const auto previous_velocity = *previous_velocity_;
+    iterator.Advance(dt);
+
+    const auto velocity = CalculateState(iterator, current_pose);
 
     const auto linear_velocity  = velocity.linear_velocity;
     const auto angular_velocity = velocity.angular_velocity;
 
+    if (previous_velocity_ == nullptr || dt <= 0.) {
+      previous_velocity_.reset(new TrajectoryTrackerVelocityOutput{linear_velocity, angular_velocity});
+      return {linear_velocity, 0.0, angular_velocity, 0.0};
+    }
+
+    const auto previous_velocity = *previous_velocity_;
+
     previous_velocity_->linear_velocity  = linear_velocity;
     previous_velocity_->angular_velocity = angular_velocity;
 
-    if (previous_velocity_ == nullptr || dt <= 0.) {
-      return {linear_velocity, 0.0, angular_velocity, 0.0};
-    }
     return {linear_velocity, (linear_velocity - previous_velocity.linear_velocity) / dt, angular_velocity,
             (angular_velocity - previous_velocity.angular_velocity) / dt};
   }
