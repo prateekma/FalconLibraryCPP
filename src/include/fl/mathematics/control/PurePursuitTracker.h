@@ -60,7 +60,7 @@ class PurePursuitTracker : public TrajectoryTracker {
 
     // Run the loop until a distance that is greater than the minimum lookahead distance is found or until
     // we run out of "trajectory" to search. If this happens, we will simply extend the end of the trajectory.
-    while (iterator.Progress() > previewed_time) {
+    while (iterator.RemainingProgress() > previewed_time) {
       previewed_time += 0.02;
       lookahead_pose_by_distance = iterator.Preview(previewed_time).state.State().Pose();
 

@@ -3,6 +3,8 @@
 #include "Trajectory.h"
 #include "fl/Utilities.h"
 
+#include <algorithm>
+
 namespace fl {
 template <typename U, typename S>
 class TrajectoryIterator {
@@ -32,7 +34,10 @@ class TrajectoryIterator {
   bool                     IsDone() const { return progress_ >= trajectory_->LastInterpolant(); }
   TrajectorySamplePoint<S> CurrentState() const { return sample_; }
 
-  U    Progress() const { return progress_; }
+  U Progress() const { return progress_; }
+  U RemainingProgress() const {
+    return std::max(trajectory_->FirstInterpolant(), trajectory_->LastInterpolant() - progress_);
+  }
   bool Reversed() const { return trajectory_->Reversed(); }
 
  protected:
