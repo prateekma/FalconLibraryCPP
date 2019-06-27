@@ -12,7 +12,7 @@ class RamseteTracker : public TrajectoryTracker {
     const TimedEntry<Pose2dWithCurvature> reference_state = iterator.CurrentState().state;
     const Pose2d error = reference_state.State().Pose().InFrameOfReferenceOf(robot_pose);
 
-    const auto vd = reference_state.Velocity();
+    const auto vd = units::unit_cast<double>(reference_state.Velocity());
     const auto wd = vd * reference_state.State().Curvature();
 
     const auto k1          = 2 * zeta_ * std::sqrt(wd * wd + beta_ * vd * vd);

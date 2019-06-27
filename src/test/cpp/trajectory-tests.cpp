@@ -21,7 +21,7 @@ class TrajectoryTest : public ::testing::Test {
         max_acceleration,
         backwards);
 
-    auto pose = trajectory.Sample(0.0).state.State().Pose();
+    auto pose = trajectory.Sample(units::second_t(0.0)).state.State().Pose();
 
     EXPECT_FALSE(false);
 
@@ -34,20 +34,20 @@ class TrajectoryTest : public ::testing::Test {
 
     const auto iterator = trajectory.Iterator();
 
-    auto sample = iterator->Advance(0.0);
+    auto sample = iterator->Advance(0_s);
 
     while (!iterator->IsDone()) {
       auto prev_sample = sample;
-      sample = iterator->Advance(0.02);
+      sample = iterator->Advance(0.02_s);
 
-      EXPECT_LT(std::abs(sample.state.Velocity()), max_velocity + kTestEpsilon);
-      EXPECT_LT(std::abs(sample.state.Acceleration()),
+      EXPECT_LT(std::abs(units::unit_cast<double>(sample.state.Velocity())), max_velocity + kTestEpsilon);
+      EXPECT_LT(std::abs(units::unit_cast<double>(sample.state.Acceleration())),
                 max_acceleration + kTestEpsilon);
 
       if (backwards) {
-        EXPECT_LT(sample.state.Velocity(), 1e-9);
+        EXPECT_LT(units::unit_cast<double>(sample.state.Velocity()), 1e-9);
       } else {
-        EXPECT_GT(sample.state.Velocity(), -1e-9);
+        EXPECT_GT(units::unit_cast<double>(sample.state.Velocity()), -1e-9);
       }
     }
 

@@ -15,8 +15,8 @@ class RamseteTest : public ::testing::Test {
     fl::RamseteTracker tracker{2.0, 0.7};
     tracker.Reset(trajectory);
 
-    fl::Pose2d robot_pose = initial;
-    double     t          = 0.0;
+    fl::Pose2d      robot_pose = initial;
+    units::second_t t          = 0_s;
 
     while (!tracker.IsFinished()) {
       const auto output = tracker.NextState(robot_pose, t);
@@ -24,7 +24,7 @@ class RamseteTest : public ::testing::Test {
       fl::Twist2d twist{output.linear_velocity * 0.02, 0.0, output.angular_velocity * 0.02};
       robot_pose = robot_pose + fl::Pose2d::FromTwist(twist);
 
-      t += 0.02;
+      t += 20_ms;
     }
 
     EXPECT_NEAR(robot_pose.Translation().X(), final.Translation().X(), 0.1);

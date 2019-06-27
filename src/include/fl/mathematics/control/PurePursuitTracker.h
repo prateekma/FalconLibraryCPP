@@ -7,7 +7,7 @@
 namespace fl {
 class PurePursuitTracker : public TrajectoryTracker {
  public:
-  PurePursuitTracker(const double lat, const double lookahead_time, const double min_lookahead_distance)
+  PurePursuitTracker(const double lat, const units::second_t lookahead_time, const double min_lookahead_distance)
       : lat_(lat), lookahead_time_(lookahead_time), min_lookahead_distance_(min_lookahead_distance) {}
 
   TrajectoryTrackerVelocityOutput CalculateState(const TimedIterator<Pose2dWithCurvature>& iterator,
@@ -25,23 +25,23 @@ class PurePursuitTracker : public TrajectoryTracker {
         reference_point.state.State().Pose().InFrameOfReferenceOf(robot_pose).Translation().X();
 
     // Calculate the velocity at the reference point.
-    const auto vd = reference_point.state.Velocity();
+    const double vd = units::unit_cast<double>(reference_point.state.Velocity());
 
     // Calculate the distance from the robot to the lookahead.
-    const auto l = lookahead_transform.Translation().Norm();
+    const double l = lookahead_transform.Translation().Norm();
 
     // Calculate the curvature of the arc that connects the robot and the lookahead point.
-    const auto curvature = 2 * lookahead_transform.Translation().Y() / std::pow(l, 2);
+    const double curvature = 2 * lookahead_transform.Translation().Y() / std::pow(l, 2);
 
     // Adjust the linear velocity to compensate for the robot lagging behind.
-    const auto adjusted_linear_velocity = vd * lookahead_transform.Rotation().Cos() + lat_ * x_error;
+    const double adjusted_linear_velocity = vd * lookahead_transform.Rotation().Cos() + lat_ * x_error;
 
     return {adjusted_linear_velocity, adjusted_linear_velocity * curvature};
   }
 
  private:
   double lat_;
-  double lookahead_time_;
+  units::second_t lookahead_time_;
   double min_lookahead_distance_;
 
   Pose2d CalculateLookaheadPose(const TimedIterator<Pose2dWithCurvature>& iterator,
@@ -56,12 +56,12 @@ class PurePursuitTracker : public TrajectoryTracker {
     }
 
     auto lookahead_pose_by_distance = iterator.CurrentState().state.State().Pose();
-    auto previewed_time             = 0.0;
+    auto previewed_time             = units::second_t(0.0);
 
     // Run the loop until a distance that is greater than the minimum lookahead distance is found or until
     // we run out of "trajectory" to search. If this happens, we will simply extend the end of the trajectory.
     while (iterator.RemainingProgress() > previewed_time) {
-      previewed_time += 0.02;
+      previewed_time += 0.02_s;
       lookahead_pose_by_distance = iterator.Preview(previewed_time).state.State().Pose();
 
       const auto lookahead_distance =

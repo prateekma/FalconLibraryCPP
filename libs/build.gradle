@@ -3,6 +3,7 @@ apply plugin: "cpp"
 ext.libroot = new File(rootProject.rootDir, "libs")
 ext.gtest_root = new File(libroot, "googletest/googletest")
 ext.gbench_root = new File(libroot, "benchmark")
+ext.units_root = new File(libroot, "units")
 
 model {
     components {
@@ -43,5 +44,17 @@ model {
                 lib project: ':libs', library: "googleTest", linkage: "static"
             }
         }
-    }
+        units(NativeLibrarySpec) {
+            sources.cpp {
+                source {
+                    srcDir units_root
+                    include "**/*.cpp"
+                }
+                exportedHeaders {
+                    srcDirs units_root
+                    include "**/*.h"
+                }
+            }       
+        }
+    }   
 }
