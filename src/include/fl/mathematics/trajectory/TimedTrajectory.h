@@ -29,7 +29,7 @@ class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
     if (delta_t < 0_s) return end_value.Interpolate(*this, 1.0 - t);
 
     auto reversing = velocity_ < 0_mps ||
-                     UnitsEpsilonEquals(velocity_, 0_mps) && acceleration_ < 0_mps_sq;
+                     EpsilonEquals(velocity_, 0_mps) && acceleration_ < 0_mps_sq;
 
     units::meters_per_second_t new_v = velocity_ + acceleration_ * delta_t;
     units::meter_t             new_s =
@@ -91,7 +91,7 @@ class TimedTrajectory : public Trajectory<units::second_t, TimedEntry<S>> {
       const auto s = this->Point(i);
       if (s.state.T() >= interpolant) {
         const auto prev_s = this->Point(i - 1);
-        if (UnitsEpsilonEquals(s.state.T(), prev_s.state.T())) {
+        if (EpsilonEquals(s.state.T(), prev_s.state.T())) {
           return TrajectorySamplePoint<TimedEntry<S>>(s);
         }
         return TrajectorySamplePoint<TimedEntry<S>>(

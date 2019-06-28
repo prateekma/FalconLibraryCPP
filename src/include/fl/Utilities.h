@@ -23,13 +23,13 @@ constexpr T Deg2Rad(const T& deg) {
   return deg * kPi / 180.0;
 }
 
-template <typename T>
+template <typename T, typename std::enable_if_t<!units::traits::is_unit_t<T>::value, int> = 0>
 bool EpsilonEquals(const T& a, const T& b) {
   return std::abs(a - b) < kEpsilon;
 }
 
-template <typename T>
-bool UnitsEpsilonEquals(const T& a, const T& b) {
+template <typename T, typename std::enable_if_t<units::traits::is_unit_t<T>::value, int> = 0>
+bool EpsilonEquals(const T& a, const T& b) {
   return units::unit_cast<double>(units::math::abs(a - b)) < kEpsilon;
 }
 
