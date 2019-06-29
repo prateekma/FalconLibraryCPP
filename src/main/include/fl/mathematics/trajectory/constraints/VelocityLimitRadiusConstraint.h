@@ -7,22 +7,10 @@ namespace fl {
 
 class VelocityLimitRadiusConstraint : public TimingConstraint<Pose2dWithCurvature> {
  public:
-  VelocityLimitRadiusConstraint(const Translation2d& point, const double radius, const double max_velocity)
-      : point_(point), radius_(radius), max_velocity_(max_velocity) {}
+  VelocityLimitRadiusConstraint(const Translation2d& point, const double radius, const double max_velocity);
 
-  ~VelocityLimitRadiusConstraint() = default;
-
-  double MaxVelocity(const Pose2dWithCurvature& state) const override {
-    if (state.Pose().Translation().Distance(point_) < radius_) {
-      return max_velocity_;
-    }
-    return std::numeric_limits<double>::max();
-  }
-
-  fl::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
-                                            double                     velocity) const override {
-    return kNoLimits;
-  }
+  double                 MaxVelocity(const Pose2dWithCurvature& state) const override;
+  fl::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state, double velocity) const override;
 
  private:
   Translation2d point_;

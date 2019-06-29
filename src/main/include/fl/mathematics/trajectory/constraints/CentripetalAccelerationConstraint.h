@@ -7,19 +7,10 @@ namespace fl {
 
 class CentripetalAccelerationConstraint final : public TimingConstraint<Pose2dWithCurvature> {
  public:
-  explicit CentripetalAccelerationConstraint(const double max_centripetal_acceleration)
-      : max_centripetal_acceleration_(max_centripetal_acceleration) {}
+  explicit CentripetalAccelerationConstraint(const double max_centripetal_acceleration);
 
-  ~CentripetalAccelerationConstraint() = default;
-
-  double MaxVelocity(const Pose2dWithCurvature& state) const override {
-    return std::sqrt(std::abs(max_centripetal_acceleration_ / state.Curvature()));
-  }
-
-  fl::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state,
-                                            double                     velocity) const override {
-    return kNoLimits;
-  }
+  double                 MaxVelocity(const Pose2dWithCurvature& state) const override;
+  fl::MinMaxAcceleration MinMaxAcceleration(const Pose2dWithCurvature& state, double velocity) const override;
 
  private:
   double max_centripetal_acceleration_;

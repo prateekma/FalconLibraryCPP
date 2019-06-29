@@ -25,6 +25,27 @@ Rotation2d Rotation2d::FromDegrees(const double degrees) {
   return Rotation2d(Deg2Rad(degrees));
 }
 
+Rotation2d Rotation2d::operator-(const Rotation2d& other) const { return *this + -other; }
+
+Rotation2d Rotation2d::operator-() const { return Rotation2d(-value_); }
+
+Rotation2d Rotation2d::operator+(const Rotation2d& other) const {
+  return Rotation2d{
+    Cos() * other.Cos() - Sin() * other.Sin(), Cos() * other.Sin() + Sin() * other.Cos(),
+    true
+  };
+}
+
+double Rotation2d::Radians() const { return value_; }
+
+double Rotation2d::Degrees() const { return Rad2Deg(value_); }
+
+double Rotation2d::Cos() const { return cos_; }
+
+double Rotation2d::Sin() const { return sin_; }
+
+double Rotation2d::Tan() const { return sin_ / cos_; }
+
 bool Rotation2d::IsParallel(const Rotation2d& other) const {
   return EpsilonEquals((*this - other).Radians(), 0.0);
 }

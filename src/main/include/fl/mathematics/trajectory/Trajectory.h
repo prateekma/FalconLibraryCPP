@@ -1,8 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <utility>
 #include <vector>
-#include <memory>
 
 namespace fl {
 
@@ -18,7 +18,6 @@ struct TrajectorySamplePoint {
   int index_floor;
   int index_ceil;
 
- public:
   explicit TrajectorySamplePoint(TrajectoryPoint<S> point)
       : state(point.state), index_floor(point.index), index_ceil(point.index) {}
 
