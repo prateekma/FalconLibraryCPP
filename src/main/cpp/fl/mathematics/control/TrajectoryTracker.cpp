@@ -13,9 +13,8 @@ TrajectoryTrackerOutput TrajectoryTracker::NextState(const Pose2d&         curre
   if (iterator_ == nullptr) throw std::exception("Iterator was nullptr.");
   auto& iterator = *iterator_;
 
-  const auto dt = (units::unit_cast<double>(previous_time_) < 0.0)
-                    ? units::second_t{0.0}
-                    : current_time - previous_time_;
+  const auto dt =
+      (units::unit_cast<double>(previous_time_) < 0.0) ? units::second_t{0.0} : current_time - previous_time_;
   previous_time_ = current_time;
 
   iterator.Advance(dt);
@@ -33,9 +32,8 @@ TrajectoryTrackerOutput TrajectoryTracker::NextState(const Pose2d&         curre
   const auto _dt = units::unit_cast<double>(dt);
 
   const TrajectoryTrackerOutput output{
-    linear_velocity, (linear_velocity - previous_velocity_->linear_velocity) / _dt, angular_velocity,
-    (angular_velocity - previous_velocity_->angular_velocity) / _dt
-  };
+      linear_velocity, (linear_velocity - previous_velocity_->linear_velocity) / _dt, angular_velocity,
+      (angular_velocity - previous_velocity_->angular_velocity) / _dt};
 
   previous_velocity_->linear_velocity  = linear_velocity;
   previous_velocity_->angular_velocity = angular_velocity;
@@ -47,5 +45,7 @@ TrajectorySamplePoint<TimedEntry<Pose2dWithCurvature>> TrajectoryTracker::Refere
   return iterator_->CurrentState();
 }
 
-bool TrajectoryTracker::IsFinished() const { return iterator_->IsDone(); }
+bool TrajectoryTracker::IsFinished() const {
+  return iterator_->IsDone();
 }
+}  // namespace fl

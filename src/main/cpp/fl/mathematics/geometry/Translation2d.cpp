@@ -34,22 +34,27 @@ Translation2d Translation2d::operator*(const double scalar) const {
 }
 
 Translation2d Translation2d::operator*(const Rotation2d& rotation) const {
-  return Translation2d{
-    x_ * rotation.Cos() - y_ * rotation.Sin(),
-    x_ * rotation.Sin() + y_ * rotation.Cos()
-  };
+  return Translation2d{x_ * rotation.Cos() - y_ * rotation.Sin(), x_ * rotation.Sin() + y_ * rotation.Cos()};
 }
 
 Translation2d Translation2d::operator/(const double scalar) const {
   return Translation2d{X() / scalar, Y() / scalar};
 }
 
-Translation2d Translation2d::operator-() const { return Translation2d{-X(), -Y()}; }
+Translation2d Translation2d::operator-() const {
+  return Translation2d{-X(), -Y()};
+}
 
-double Translation2d::X() const { return x_; }
+double Translation2d::X() const {
+  return x_;
+}
 
-double Translation2d::Y() const { return y_; }
+double Translation2d::Y() const {
+  return y_;
+}
 
-double Translation2d::Norm() const { return std::hypot(x_, y_); }
+double Translation2d::Norm() const {
+  return std::hypot(x_, y_);
+}
 
 }  // namespace fl

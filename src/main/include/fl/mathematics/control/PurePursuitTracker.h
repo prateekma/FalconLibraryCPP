@@ -11,13 +11,12 @@ class PurePursuitTracker : public TrajectoryTracker {
                      const double min_lookahead_distance);
 
   TrajectoryTrackerVelocityOutput CalculateState(const TimedIterator<Pose2dWithCurvature>& iterator,
-                                                 const Pose2d&                             robot_pose) const
-  override;
+                                                 const Pose2d& robot_pose) const override;
 
  private:
-  double lat_;
+  double          lat_;
   units::second_t lookahead_time_;
-  double min_lookahead_distance_;
+  double          min_lookahead_distance_;
 
   Pose2d CalculateLookaheadPose(const TimedIterator<Pose2dWithCurvature>& iterator,
                                 const Pose2d&                             robot_pose) const;

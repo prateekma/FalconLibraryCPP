@@ -28,8 +28,7 @@ class TimedEntry final : public VaryInterpolatable<TimedEntry<S>> {
 
     if (delta_t < 0_s) return end_value.Interpolate(*this, 1.0 - t);
 
-    auto reversing = velocity_ < 0_mps ||
-                     EpsilonEquals(velocity_, 0_mps) && acceleration_ < 0_mps_sq;
+    auto reversing = velocity_ < 0_mps || EpsilonEquals(velocity_, 0_mps) && acceleration_ < 0_mps_sq;
 
     units::meters_per_second_t new_v = velocity_ + acceleration_ * delta_t;
     units::meter_t             new_s =

@@ -17,13 +17,13 @@ class TrajectoryGenerator {
 
  public:
   static TimedTrajectory<Pose2dWithCurvature> GenerateTrajectory(
-    std::vector<Pose2d> waypoints, const Constraints& constraints, const double  start_velocity,
-    const double        end_velocity, const double    max_velocity, const double max_acceleration,
-    const bool          reversed);
+      std::vector<Pose2d> waypoints, const Constraints& constraints, const double start_velocity,
+      const double end_velocity, const double max_velocity, const double max_acceleration,
+      const bool reversed);
 
   static IndexedTrajectory<Pose2dWithCurvature> TrajectoryFromSplineWaypoints(
-    const std::vector<Pose2d>& waypoints, const double max_dx, const double max_dy,
-    const double               max_dtheta);
+      const std::vector<Pose2d>& waypoints, const double max_dx, const double max_dy,
+      const double max_dtheta);
 
   template <typename S>
   struct ConstrainedPose {

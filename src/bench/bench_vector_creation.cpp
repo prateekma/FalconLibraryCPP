@@ -24,8 +24,8 @@ struct ConstrainedPose {
   }
 
   ConstrainedPose(ConstrainedPose& other) = default;
-  ConstrainedPose& operator=(ConstrainedPose& other) {
-    //std::cout << "Copy operator called";
+  ConstrainedPose& operator               =(ConstrainedPose& other) {
+    // std::cout << "Copy operator called";
     this->state            = other.state;
     this->distance         = other.distance;
     this->max_velocity     = other.max_velocity;

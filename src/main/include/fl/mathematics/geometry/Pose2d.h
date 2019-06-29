@@ -28,12 +28,12 @@ class Pose2d final : public VaryInterpolatable<Pose2d> {
   // Member Functions
   Pose2d Mirror() const;
   Pose2d TransformBy(const Pose2d& other) const;
-  bool IsCollinear(const Pose2d& other) const;
+  bool   IsCollinear(const Pose2d& other) const;
   Pose2d InFrameOfReferenceOf(const Pose2d& other) const;
 
   // Static Methods
   static Twist2d ToTwist(const Pose2d& pose);
-  static Pose2d FromTwist(const Twist2d& twist);
+  static Pose2d  FromTwist(const Twist2d& twist);
 
  private:
   Translation2d translation_;

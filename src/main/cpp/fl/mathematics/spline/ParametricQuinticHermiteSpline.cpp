@@ -62,7 +62,7 @@ double ParametricQuinticHermiteSpline::Curvature(const double t) const {
 double ParametricQuinticHermiteSpline::DCurvature(const double t) const {
   const auto dx_2dy2 = Dx(t) * Dx(t) + Dy(t) * Dy(t);
   const auto num     = (Dx(t) * Dddy(t) - Dddx(t) * Dy(t)) * dx_2dy2 -
-                       3.0 * (Dx(t) * Ddy(t) - Ddx(t) * Dy(t)) * (Dx(t) * Ddx(t) + Dy(t) * Ddy(t));
+                   3.0 * (Dx(t) * Ddy(t) - Ddx(t) * Dy(t)) * (Dx(t) * Ddx(t) + Dy(t) * Ddy(t));
   return num / (dx_2dy2 * dx_2dy2 * std::sqrt(dx_2dy2));
 }
 
