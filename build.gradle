@@ -9,11 +9,11 @@ model {
         falconlibrary(NativeLibrarySpec) {
             sources.cpp {
                 source {
-                    srcDir "src/cpp"
+                    srcDir "src/main/cpp"
                     include "**/*.cpp"
                 }
                 exportedHeaders {
-                    srcDir "src/include"
+                    srcDir "src/main/include"
                     include "**/*.h"
                 }
                 lib project: ':libs', library: 'units', linkage: 'static'
