@@ -47,7 +47,7 @@ Pose2d PurePursuitTracker::CalculateLookaheadPose(const TimedIterator<Pose2dWith
   }
 
   auto lookahead_pose_by_distance = iterator.CurrentState().state.State().Pose();
-  auto previewed_time             = units::second_t(0.0);
+  auto previewed_time             = lookahead_time_;
 
   // Run the loop until a distance that is greater than the minimum lookahead distance is found or until
   // we run out of "trajectory" to search. If this happens, we will simply extend the end of the trajectory.
